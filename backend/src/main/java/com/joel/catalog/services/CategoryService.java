@@ -60,22 +60,17 @@ public class CategoryService {
 		}
 	}
 
-
 	public void delete(Long categoryId) {
 		try {
 			categoryRepository.deleteById(categoryId);
 		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id not found " + categoryId);
+			throw new ResourceNotFoundException("Id not found ," + categoryId);
 		}catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
 		}
 		
-		
 	}
-	
-	
 
-	
 }
 
 

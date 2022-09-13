@@ -1,12 +1,15 @@
 package com.joel.catalog.entities;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -27,6 +30,23 @@ public class Category implements Serializable {
 	
 	@Column
 	private String name;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant creationDate;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant updateDate;
+	
+	@PrePersist
+	public void prePersist() {
+		creationDate = Instant.now();
+	}
+	
+	@PreUpdate
+	public void preUpdate() {
+		updateDate = Instant.now();
+	}
+	
 }
 
 
