@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +52,12 @@ public class CategoryController {
 	public ResponseEntity<CategoryDto> update(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto){
 		categoryDto = categoryService.update(categoryId, categoryDto);
 		return ResponseEntity.status(HttpStatus.OK).body(categoryDto);
+	}
+	
+	@DeleteMapping(value = "/{categoryId}")
+	public ResponseEntity<Void> delete(@PathVariable Long categoryId) {
+		 categoryService.delete(categoryId);
+		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}
 
 }
