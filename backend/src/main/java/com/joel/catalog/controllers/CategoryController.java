@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,7 +32,7 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/{categoryId}")
-	public ResponseEntity<CategoryDto>  findById(@PathVariable("categoryId") Long categoryId) {
+	public ResponseEntity<CategoryDto>  findById(@PathVariable Long categoryId) {
 		var category = categoryService.findById(categoryId);
 		return ResponseEntity.status(HttpStatus.CREATED).body(category);
 	}
@@ -44,6 +45,12 @@ public class CategoryController {
 		
 		return ResponseEntity.created(uri).body(categoryDto);
 				
+	}
+	
+	@PutMapping("/{categoryId}")
+	public ResponseEntity<CategoryDto> update(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto){
+		categoryDto = categoryService.update(categoryId, categoryDto);
+		return ResponseEntity.status(HttpStatus.OK).body(categoryDto);
 	}
 
 }
