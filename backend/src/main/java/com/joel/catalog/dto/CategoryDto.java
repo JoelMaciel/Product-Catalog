@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 public class CategoryDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	private Long id;
+	private Long categoryId;
 	private String name;
 	
 	public CategoryDto(Category category) {
-		this.id = category.getId();
+		this.categoryId = category.getCategoryId();
 		this.name = category.getName();
 	}
 
