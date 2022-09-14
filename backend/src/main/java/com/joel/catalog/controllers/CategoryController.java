@@ -43,31 +43,31 @@ public class CategoryController {
 		return ResponseEntity.ok().body(pages);
 	}
 	
-	@GetMapping("/{categoryId}")
-	public ResponseEntity<CategoryDto>  findById(@PathVariable Long categoryId) {
-		var category = categoryService.findById(categoryId);
+	@GetMapping("/{id}")
+	public ResponseEntity<CategoryDto>  findById(@PathVariable Long id) {
+		var category = categoryService.findById(id);
 		return ResponseEntity.status(HttpStatus.CREATED).body(category);
 	}
 	
 	@PostMapping
 	public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto categoryDto) {
 		categoryDto = categoryService.save(categoryDto);
-	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{categoryId}")
-				.buildAndExpand(categoryDto.getCategoryId()).toUri();
+	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(categoryDto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(categoryDto);
 				
 	}
 	
-	@PutMapping("/{categoryId}")
-	public ResponseEntity<CategoryDto> update(@PathVariable Long categoryId, @RequestBody CategoryDto categoryDto){
-		categoryDto = categoryService.update(categoryId, categoryDto);
+	@PutMapping("/{id}")
+	public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryDto categoryDto){
+		categoryDto = categoryService.update(id, categoryDto);
 		return ResponseEntity.status(HttpStatus.OK).body(categoryDto);
 	}
 	
-	@DeleteMapping("/{categoryId}")
-	public ResponseEntity<Void> delete(@PathVariable Long categoryId) {
-		categoryService.delete(categoryId);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
+		categoryService.delete(id);
 		
 		return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 	}

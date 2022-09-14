@@ -32,8 +32,8 @@ public class CategoryService {
 	}
 	
 	@Transactional(readOnly = true)
-	public CategoryDto findById(Long categoryId) {
-		Optional<Category> categoryOptional = categoryRepository.findById(categoryId);
+	public CategoryDto findById(Long id) {
+		Optional<Category> categoryOptional = categoryRepository.findById(id);
 		Category category =  categoryOptional.orElseThrow(
 				() -> new ResourceNotFoundException("Entity not found"));
 		return new CategoryDto(category);
@@ -48,23 +48,23 @@ public class CategoryService {
 	}
 
 	@Transactional
-	public CategoryDto update(Long categoryId, CategoryDto categoryDto) {
+	public CategoryDto update(Long id, CategoryDto categoryDto) {
 		try {
-			Category category = categoryRepository.getReferenceById(categoryId);
+			Category category = categoryRepository.getReferenceById(id);
 			category.setName(categoryDto.getName());
 			category = categoryRepository.save(category);
 			return  new CategoryDto(category);
 			
 		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id not found " + categoryId);
+			throw new ResourceNotFoundException("Id not found " + id);
 		}
 	}
 
-	public void delete(Long categoryId) {
+	public void delete(Long id) {
 		try {
-			categoryRepository.deleteById(categoryId);
+			categoryRepository.deleteById(id);
 		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id not found ," + categoryId);
+			throw new ResourceNotFoundException("Id not found ," + id);
 		}catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
 		}
