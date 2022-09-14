@@ -31,7 +31,9 @@ public class ProductDto implements Serializable{
 	
 	@Column(columnDefinition = "TEXT")
 	private String description;
+	
 	private Double price;
+	
 	private String imgUrl;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
