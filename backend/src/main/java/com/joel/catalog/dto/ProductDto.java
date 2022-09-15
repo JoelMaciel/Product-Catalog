@@ -42,7 +42,7 @@ public class ProductDto implements Serializable{
 	private List<CategoryDto> categories = new ArrayList<>();
 	
 	public ProductDto(Product product) {
-		this.producId = product.getProducId();
+		this.producId = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
 		this.price = product.getPrice();
