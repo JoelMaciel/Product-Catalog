@@ -58,6 +58,21 @@ public class ProductRepositoryTests {
 		Assertions.assertNotNull(product.getId());
 		Assertions.assertEquals(countTotalProducts + 1, product.getId());
 	}
+	
+	@Test
+	public void shouldReturnIdWhendExistingId() {
+		 Optional<Product> productOptional = productRepository.findById(exitingId);
+		
+		Assertions.assertTrue(productOptional.isPresent());
+	}
+	
+	@Test
+	public void shouldReturnResourceNotFoundExceptionWhendIdNotExisting() {
+		
+		Optional<Product> productOptional = productRepository.findById(nonExistingId);
+		
+		Assertions.assertFalse(productOptional.isPresent());
+	}
 }
 
 
