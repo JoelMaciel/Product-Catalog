@@ -38,14 +38,14 @@ public class ProductController {
 	@GetMapping("/{id}")
 	public ResponseEntity<ProductDto>  findById(@PathVariable Long id) {
 		var product = productService.findById(id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(product);
+		return ResponseEntity.status(HttpStatus.OK).body(product);
 	}
 	
 	@PostMapping
 	public ResponseEntity<ProductDto> save(@RequestBody ProductDto productDto) {
 		productDto = productService.save(productDto);
 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(productDto.getProducId()).toUri();
+				.buildAndExpand(productDto.getId()).toUri();
 		
 		return ResponseEntity.created(uri).body(productDto);
 				

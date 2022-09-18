@@ -26,7 +26,7 @@ public class ProductDto implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long producId;
+	private Long id;
 	private String name;
 	
 	@Column(columnDefinition = "TEXT")
@@ -42,7 +42,7 @@ public class ProductDto implements Serializable{
 	private List<CategoryDto> categories = new ArrayList<>();
 	
 	public ProductDto(Product product) {
-		this.producId = product.getId();
+		this.id = product.getId();
 		this.name = product.getName();
 		this.description = product.getDescription();
 		this.price = product.getPrice();
