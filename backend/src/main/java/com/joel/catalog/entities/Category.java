@@ -41,7 +41,7 @@ public class Category implements Serializable {
 	private Instant updateDate;
 	
 	@ManyToMany(mappedBy = "categories")
-	private Set<Product> products = new HashSet<>();
+    Set<Product> products = new HashSet<>();
 	
 	@PrePersist
 	public void prePersist() {
