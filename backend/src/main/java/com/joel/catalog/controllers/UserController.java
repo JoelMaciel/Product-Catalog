@@ -2,6 +2,8 @@ package com.joel.catalog.controllers;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +43,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<UserDTO> save(@RequestBody UserInsertDTO userInsertDTO) {
+	public ResponseEntity<UserDTO> save(@RequestBody @Valid UserInsertDTO userInsertDTO) {
 		var userDto = userService.save(userInsertDTO);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -51,7 +53,7 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserInsertDTO userDTO){
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid  @RequestBody UserInsertDTO userDTO){
 		var userDto = userService.update(id, userDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(userDto);
 		
