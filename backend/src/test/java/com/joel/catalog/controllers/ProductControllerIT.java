@@ -72,7 +72,7 @@ public class ProductControllerIT {
 				.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isOk());
-		result.andExpectAll(jsonPath("$.id").value(existingId));
+		result.andExpect(jsonPath("$.id").value(existingId));
 		result.andExpect(jsonPath("$.name").value(expectedName));
 		result.andExpect(jsonPath("$.description").value(expectedDescripton));
 	}

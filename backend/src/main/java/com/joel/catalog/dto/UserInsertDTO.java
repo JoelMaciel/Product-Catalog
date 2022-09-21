@@ -1,11 +1,12 @@
 package com.joel.catalog.dto;
 
-import lombok.NoArgsConstructor;
+public class UserInsertDTO extends UserDTO {
 
-@NoArgsConstructor
-public class UserInsertDTO extends UserDTO{
-	
 	private String password;
+
+	public UserInsertDTO() {
+		super();
+	}
 
 	public String getPassword() {
 		return password;
@@ -14,7 +15,5 @@ public class UserInsertDTO extends UserDTO{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	
 
 }

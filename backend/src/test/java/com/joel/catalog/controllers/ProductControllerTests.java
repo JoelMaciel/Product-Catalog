@@ -137,7 +137,7 @@ public class ProductControllerTests {
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON));
 		
-		result.andExpectAll(status().isNotFound());
+		result.andExpect(status().isNotFound());
 		
 	}
 	
@@ -145,7 +145,7 @@ public class ProductControllerTests {
 	public void findAllShouldReturnPage() throws Exception {
 		ResultActions result = mockMvc.perform(get("/products").accept(MediaType.APPLICATION_JSON));
 		
-		result.andExpectAll(status().isOk());
+		result.andExpect(status().isOk());
 	}
 	@Test
 	public void findByIdSouldReturnProductWhenIdExist() throws Exception {

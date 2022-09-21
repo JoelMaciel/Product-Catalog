@@ -18,12 +18,10 @@ public class UserDTO {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private String password;
 	
 	Set<RoleDTO> roles = new HashSet<>();
 	
 	public UserDTO(User user) {
-		super();
 		this.id = user.getId();
 		this.firstName = user.getFirstName();
 		this.lastName = user.getLastName();
