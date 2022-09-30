@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.joel.catalog.dto.UserDTO;
 import com.joel.catalog.dto.UserInsertDTO;
+import com.joel.catalog.dto.UserUpdateDTO;
 import com.joel.catalog.services.UserService;
 
 @RestController
@@ -53,7 +54,7 @@ public class UserController {
 	}
 	
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid  @RequestBody UserInsertDTO userDTO){
+	public ResponseEntity<UserDTO> update(@PathVariable Long id, @Valid  @RequestBody UserUpdateDTO userDTO){
 		var userDto = userService.update(id, userDTO);
 		return ResponseEntity.status(HttpStatus.OK).body(userDto);
 		
