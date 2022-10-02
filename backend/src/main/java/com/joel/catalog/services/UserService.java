@@ -104,11 +104,11 @@ public class UserService implements UserDetailsService {
 
 		var user = userRepository.findByEmail(username);
 		if (user == null) {
-			log.error("User not found");
-			throw new UsernameNotFoundException("Email not found: " + username);
+			log.error("User not found {} : " , username);
+			throw new UsernameNotFoundException("Email not found {} : " + username);
 		}
 
-		log.info("User found" + username);
+		log.info("User found {} : " + username);
 		return user;
 	}
 
