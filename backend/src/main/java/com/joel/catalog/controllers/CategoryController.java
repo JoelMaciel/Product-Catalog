@@ -37,7 +37,7 @@ public class CategoryController {
 	@GetMapping("/{id}")
 	public ResponseEntity<CategoryDto>  findById(@PathVariable Long id) {
 		var category = categoryService.findById(id);
-		return ResponseEntity.status(HttpStatus.CREATED).body(category);
+		return ResponseEntity.status(HttpStatus.OK).body(category);
 	}
 	
 	@PostMapping
