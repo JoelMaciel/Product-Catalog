@@ -36,7 +36,8 @@ public class ProductService {
 	public Page<ProductDto> findAllPaged(Long categoryId, String name, Pageable pageable){
 		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId)) ;
 		Page<Product> products = productRepository.find(categories, name, pageable);
-		return products.map(product -> new ProductDto(product));
+		productRepository.findProductsWithCategories(products.getContent());
+		return products.map(product -> new ProductDto(product, product.getCategories()));
 		
 	}
 	
