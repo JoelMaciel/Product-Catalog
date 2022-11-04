@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -30,9 +31,12 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping
-	public ResponseEntity<Page<ProductDto>> findAll(Pageable pageable) {
+	public ResponseEntity<Page<ProductDto>> findAll(
+			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
+			@RequestParam(value = "name", defaultValue = "") String name,
+			Pageable pageable) {
 
-		Page<ProductDto> pages = productService.findAllPaged(pageable);
+		Page<ProductDto> pages = productService.findAllPaged(categoryId, name.trim(), pageable);
 		return ResponseEntity.ok().body(pages);
 	}
 

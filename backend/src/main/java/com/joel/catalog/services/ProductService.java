@@ -1,5 +1,7 @@
 package com.joel.catalog.services;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -31,8 +33,9 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDto> findAllPaged(Pageable pageable){
-		Page<Product> products = productRepository.findAll(pageable);
+	public Page<ProductDto> findAllPaged(Long categoryId, String name, Pageable pageable){
+		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId)) ;
+		Page<Product> products = productRepository.find(categories, name, pageable);
 		return products.map(product -> new ProductDto(product));
 		
 	}
