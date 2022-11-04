@@ -1,5 +1,7 @@
 package com.joel.catalog.repositories;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,7 +15,8 @@ import com.joel.catalog.entities.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	@Query("select distinct p from Product p inner join p.categories cats where "
-			+ "(:category is null or :category in cats)")
-	Page<Product> find(Category category, Pageable pageable);
+			+ "(coalesce(:categories) is null or cats in :categories) and "
+			+ "(lower(p.name) like  lower(concat('%',:name,'%')) )")
+	Page<Product> find(List<Category> categories, String name, Pageable pageable);
 
 }
