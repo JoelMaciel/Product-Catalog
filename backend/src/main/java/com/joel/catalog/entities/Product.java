@@ -18,9 +18,12 @@ import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_product")
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -45,25 +48,7 @@ public class Product implements Serializable{
 	Set<Category> categories = new HashSet<>();
 	
 	
-	public Product() {
-		
-	}
-
-
-	public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.imgUrl = imgUrl;
-		this.date = date;
-		
-	}
-
 	
-	
-
 }
 
 
