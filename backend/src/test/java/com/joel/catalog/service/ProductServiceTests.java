@@ -1,5 +1,8 @@
 package com.joel.catalog.service;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.times;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +12,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -61,12 +63,14 @@ public class ProductServiceTests {
 		page = new PageImpl<>(List.of(product));
 		productDto = Factory.createProductDto();
 		
-		Mockito.when(productRepository.findAll((Pageable)ArgumentMatchers.any())).thenReturn(page);
+		Mockito.when(productRepository.findAll((Pageable)any())).thenReturn(page);
 		
-		Mockito.when(productRepository.save(ArgumentMatchers.any())).thenReturn(product);
+		Mockito.when(productRepository.save(any())).thenReturn(product);
 		
 		Mockito.when(productRepository.findById(existingId)).thenReturn(Optional.of(product));
 		Mockito.when(productRepository.findById(nonExistsId)).thenReturn(Optional.empty());
+		
+		Mockito.when(productRepository.find(any(), any(), any())).thenReturn(page);
 		
 		Mockito.when(productRepository.getOne(existingId)).thenReturn(product);
 		Mockito.when(productRepository.getOne(nonExistsId)).thenThrow(EntityNotFoundException.class);
@@ -118,11 +122,10 @@ public class ProductServiceTests {
 		
 		Pageable pageable = PageRequest.of(0, 10);
 		
-		Page<ProductDto> result = productService.findAllPaged(pageable);
+		Page<ProductDto> result = productService.findAllPaged(0L, "", pageable);
 		
 		Assertions.assertNotNull(result);
 		
-		Mockito.verify(productRepository, Mockito.times(1)).findAll(pageable);
 	}
 	
 	@Test
@@ -131,7 +134,7 @@ public class ProductServiceTests {
 			productService.delete(dependetId);
 		});
 		
-		Mockito.verify(productRepository, Mockito.times(1)).deleteById(dependetId);
+		Mockito.verify(productRepository, times(1)).deleteById(dependetId);
 	}
 	
 	@Test
@@ -141,7 +144,7 @@ public class ProductServiceTests {
 			productService.delete(existingId);			
 		});
 		
-		Mockito.verify(productRepository, Mockito.times(1)).deleteById(existingId);
+		Mockito.verify(productRepository, times(1)).deleteById(existingId);
 	}
 	
 	@Test
@@ -150,7 +153,7 @@ public class ProductServiceTests {
 			productService.delete(nonExistsId);
 		});
 		
-		Mockito.verify(productRepository, Mockito.times(1)).deleteById(nonExistsId);
+		Mockito.verify(productRepository, times(1)).deleteById(nonExistsId);
 	}
 
 }
