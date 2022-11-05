@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
@@ -23,7 +24,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "tb_product")
 public class Product implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -46,6 +46,15 @@ public class Product implements Serializable{
 	joinColumns = @JoinColumn(name = "product_id"),
 	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	Set<Category> categories = new HashSet<>();
+	
+	public Product(Long id, String name, String description, Double price, String imgUrl, Instant date) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.imgUrl = imgUrl;
+		this.date = date;
+	}
 	
 	
 	
