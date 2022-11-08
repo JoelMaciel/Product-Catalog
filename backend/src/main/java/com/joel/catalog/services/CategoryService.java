@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.joel.catalog.dto.CategoryDto;
+import com.joel.catalog.dto.CategoryDTO;
 import com.joel.catalog.entities.Category;
 import com.joel.catalog.repositories.CategoryRepository;
 import com.joel.catalog.services.exception.DatabaseException;
@@ -20,60 +20,56 @@ import com.joel.catalog.services.exception.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
-	
+
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryRepository repository;
 	
 	@Transactional(readOnly = true)
-	public Page<CategoryDto> findAllPaged(Pageable pageable){
-		Page<Category> categories = categoryRepository.findAll(pageable);
-		return categories.map(category -> new CategoryDto(category));
-		
+	public Page<CategoryDTO> findAllPaged(Pageable pageable) {
+		Page<Category> list = repository.findAll(pageable);
+		return list.map(x -> new CategoryDTO(x));
 	}
-	
+
 	@Transactional(readOnly = true)
-	public CategoryDto findById(Long id) {
-		Optional<Category> categoryOptional = categoryRepository.findById(id);
-		Category category =  categoryOptional.orElseThrow(
-				() -> new ResourceNotFoundException("Entity not found"));
-		return new CategoryDto(category);
+	public CategoryDTO findById(Long id) {
+		Optional<Category> obj = repository.findById(id);
+		Category entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+		return new CategoryDTO(entity);
 	}
 
 	@Transactional
-	public CategoryDto save(CategoryDto categoryDto) {
-		var category = new Category();
-		category.setName(categoryDto.getName());
-		category =  categoryRepository.save(category);
-		return new CategoryDto(category);
+	public CategoryDTO insert(CategoryDTO dto) {
+		Category entity = new Category();
+		entity.setName(dto.getName());
+		entity = repository.save(entity);
+		return new CategoryDTO(entity);
 	}
 
 	@Transactional
-	public CategoryDto update(Long id, CategoryDto categoryDto) {
+	public CategoryDTO update(Long id, CategoryDTO dto) {
 		try {
-			Category category = categoryRepository.getOne(id);
-			category.setName(categoryDto.getName());
-			category = categoryRepository.save(category);
-			return  new CategoryDto(category);
-			
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id not found " + id);
+			Category entity = repository.getOne(id);
+			entity.setName(dto.getName());
+			entity = repository.save(entity);
+			return new CategoryDTO(entity);
 		}
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}		
 	}
 
 	public void delete(Long id) {
 		try {
-			categoryRepository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Id not found ," + id);
-		}catch (DataIntegrityViolationException e) {
+			repository.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		}
+		catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
 		}
-		
 	}
-
 }
-
-
 
 
 

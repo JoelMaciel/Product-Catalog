@@ -14,8 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.joel.catalog.dto.CategoryDto;
-import com.joel.catalog.dto.ProductDto;
+import com.joel.catalog.dto.CategoryDTO;
+import com.joel.catalog.dto.ProductDTO;
 import com.joel.catalog.entities.Category;
 import com.joel.catalog.entities.Product;
 import com.joel.catalog.repositories.CategoryRepository;
@@ -33,38 +33,38 @@ public class ProductService {
 	private CategoryRepository categoryRepository;
 	
 	@Transactional(readOnly = true)
-	public Page<ProductDto> findAllPaged(Long categoryId, String name, Pageable pageable){
+	public Page<ProductDTO> findAllPaged(Long categoryId, String name, Pageable pageable){
 		List<Category> categories = (categoryId == 0) ? null : Arrays.asList(categoryRepository.getOne(categoryId)) ;
 		Page<Product> products = productRepository.find(categories, name, pageable);
 		productRepository.findProductsWithCategories(products.getContent());
-		return products.map(product -> new ProductDto(product, product.getCategories()));
+		return products.map(product -> new ProductDTO(product, product.getCategories()));
 		
 	}
 	
 	@Transactional(readOnly = true)
-	public ProductDto findById(Long id) {
+	public ProductDTO findById(Long id) {
 		Optional<Product> productOptional = productRepository.findById(id);
 		var product =  productOptional.orElseThrow(
 				() -> new ResourceNotFoundException("Entity not found"));
-		return new ProductDto(product, product.getCategories());
+		return new ProductDTO(product, product.getCategories());
 	}
 
 	@Transactional
-	public ProductDto save(ProductDto productDto) {
+	public ProductDTO save(ProductDTO productDto) {
 		var product = new Product();
 		copyDtoToProduct(productDto, product);
 		product =  productRepository.save(product);
-		return new ProductDto(product);
+		return new ProductDTO(product);
 	}
 
 
 	@Transactional
-	public ProductDto update(Long id, ProductDto productDto) {
+	public ProductDTO update(Long id, ProductDTO productDto) {
 		try {
 			Product product = productRepository.getOne(id);
 			copyDtoToProduct(productDto, product);
 			product = productRepository.save(product);
-			return  new ProductDto(product);
+			return  new ProductDTO(product);
 			
 		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException("Id not found " + id);
@@ -82,7 +82,7 @@ public class ProductService {
 		
 	}
 	
-	private void copyDtoToProduct(ProductDto productDto, Product product) {
+	private void copyDtoToProduct(ProductDTO productDto, Product product) {
 		product.setName(productDto.getName());
 		product.setDescription(productDto.getDescription());
 		product.setDate(productDto.getDate());
@@ -90,7 +90,7 @@ public class ProductService {
 		product.setPrice(productDto.getPrice());
 		
 		product.getCategories().clear();
-		for(CategoryDto categoryDto : productDto.getCategories()) {
+		for(CategoryDTO categoryDto : productDto.getCategories()) {
 			Category category = categoryRepository.getOne(categoryDto.getId());
 			product.getCategories().add(category);
 		}

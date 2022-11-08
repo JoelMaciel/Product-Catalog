@@ -23,7 +23,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.joel.catalog.dto.ProductDto;
+import com.joel.catalog.dto.ProductDTO;
 import com.joel.catalog.entities.Category;
 import com.joel.catalog.entities.Product;
 import com.joel.catalog.repositories.CategoryRepository;
@@ -51,7 +51,7 @@ public class ProductServiceTests {
 	private PageImpl<Product> page;
 	private Product product;
 	private Category category;
-	private ProductDto productDto;
+	private ProductDTO productDto;
 	
 	@BeforeEach
 	void setUp() {
@@ -112,7 +112,7 @@ public class ProductServiceTests {
 	@Test
 	public void findByIdShouldReturnProductDtoWhenIdExists() {
 		
-		ProductDto productDto = productService.findById(existingId);
+		ProductDTO productDto = productService.findById(existingId);
 		
 		Assertions.assertNotNull(productDto);
 	}
@@ -122,7 +122,7 @@ public class ProductServiceTests {
 		
 		Pageable pageable = PageRequest.of(0, 10);
 		
-		Page<ProductDto> result = productService.findAllPaged(0L, "", pageable);
+		Page<ProductDTO> result = productService.findAllPaged(0L, "", pageable);
 		
 		Assertions.assertNotNull(result);
 		

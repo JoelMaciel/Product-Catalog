@@ -18,9 +18,11 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joel.catalog.dto.ProductDto;
+import com.joel.catalog.dto.ProductDTO;
 import com.joel.catalog.tests.Factory;
 import com.joel.catalog.tests.TokenUtil;
+
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -73,7 +75,7 @@ public class ProductControllerIT {
 		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
 		
-		ProductDto productDto = Factory.createProductDto();
+		ProductDTO productDto = Factory.createProductDto();
 		String jsonBody = objectMapper.writeValueAsString(productDto);
 		
 		String expectedName = productDto.getName();
@@ -96,7 +98,7 @@ public class ProductControllerIT {
 		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, username, password);
 		
-		ProductDto productDto = Factory.createProductDto();
+		ProductDTO productDto = Factory.createProductDto();
 		String jsonBody = objectMapper.writeValueAsString(productDto);
 		
 		ResultActions result = mockMvc.perform(put("/products/{id}", nonExistingId)

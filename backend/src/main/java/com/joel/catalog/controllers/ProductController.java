@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.joel.catalog.dto.ProductDto;
+import com.joel.catalog.dto.ProductDTO;
 import com.joel.catalog.services.ProductService;
 
 @RestController
@@ -31,23 +31,23 @@ public class ProductController {
 	private ProductService productService;
 
 	@GetMapping
-	public ResponseEntity<Page<ProductDto>> findAll(
+	public ResponseEntity<Page<ProductDTO>> findAll(
 			@RequestParam(value = "categoryId", defaultValue = "0") Long categoryId,
 			@RequestParam(value = "name", defaultValue = "") String name,
 			Pageable pageable) {
 
-		Page<ProductDto> pages = productService.findAllPaged(categoryId, name.trim(), pageable);
+		Page<ProductDTO> pages = productService.findAllPaged(categoryId, name.trim(), pageable);
 		return ResponseEntity.ok().body(pages);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<ProductDto> findById(@PathVariable Long id) {
+	public ResponseEntity<ProductDTO> findById(@PathVariable Long id) {
 		var product = productService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(product);
 	}
 
 	@PostMapping
-	public ResponseEntity<ProductDto> save(@Valid @RequestBody ProductDto productDto) {
+	public ResponseEntity<ProductDTO> save(@Valid @RequestBody ProductDTO productDto) {
 		productDto = productService.save(productDto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(productDto.getId()).toUri();
@@ -57,7 +57,7 @@ public class ProductController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<ProductDto> update(@PathVariable Long id, @Valid @RequestBody ProductDto productDto) {
+	public ResponseEntity<ProductDTO> update(@PathVariable Long id, @Valid @RequestBody ProductDTO productDto) {
 		productDto = productService.update(id, productDto);
 		return ResponseEntity.status(HttpStatus.OK).body(productDto);
 	}
