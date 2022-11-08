@@ -2,7 +2,7 @@ package com.joel.catalog.tests;
 
 import java.time.Instant;
 
-import com.joel.catalog.dto.ProductDto;
+import com.joel.catalog.dto.ProductDTO;
 import com.joel.catalog.entities.Category;
 import com.joel.catalog.entities.Product;
 
@@ -15,9 +15,9 @@ public class Factory {
 		return product;
 	}
 	
-	public static ProductDto createProductDto() {
+	public static ProductDTO createProductDto() {
 		var product = createProduct();
-		return new ProductDto( product, product.getCategories());
+		return new ProductDTO( product, product.getCategories());
 		
 	}
 	

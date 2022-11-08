@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.joel.catalog.dto.CategoryDto;
+import com.joel.catalog.dto.CategoryDTO;
 import com.joel.catalog.services.CategoryService;
 
 @RestController
@@ -28,21 +28,21 @@ public class CategoryController {
 	private CategoryService categoryService;
 	
 	@GetMapping
-	public ResponseEntity<Page<CategoryDto>> findAll(Pageable pageable){
+	public ResponseEntity<Page<CategoryDTO>> findAll(Pageable pageable){
 				
-		Page<CategoryDto> pages = categoryService.findAllPaged(pageable);
+		Page<CategoryDTO> pages = categoryService.findAllPaged(pageable);
 		return ResponseEntity.ok().body(pages);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<CategoryDto>  findById(@PathVariable Long id) {
+	public ResponseEntity<CategoryDTO>  findById(@PathVariable Long id) {
 		var category = categoryService.findById(id);
 		return ResponseEntity.status(HttpStatus.OK).body(category);
 	}
 	
 	@PostMapping
-	public ResponseEntity<CategoryDto> save(@RequestBody CategoryDto categoryDto) {
-		categoryDto = categoryService.save(categoryDto);
+	public ResponseEntity<CategoryDTO> save(@RequestBody CategoryDTO categoryDto) {
+		categoryDto = categoryService.insert(categoryDto);
 	URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(categoryDto.getId()).toUri();
 		
@@ -51,7 +51,7 @@ public class CategoryController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<CategoryDto> update(@PathVariable Long id, @RequestBody CategoryDto categoryDto){
+	public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO categoryDto){
 		categoryDto = categoryService.update(id, categoryDto);
 		return ResponseEntity.status(HttpStatus.OK).body(categoryDto);
 	}

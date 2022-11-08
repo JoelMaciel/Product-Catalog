@@ -45,7 +45,7 @@ public class UserController {
 	
 	@PostMapping
 	public ResponseEntity<UserDTO> save(@RequestBody @Valid UserInsertDTO userInsertDTO) {
-		var userDto = userService.save(userInsertDTO);
+		var userDto = userService.insert(userInsertDTO);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(userDto.getLastName()).toUri();

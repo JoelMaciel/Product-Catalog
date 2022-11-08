@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.joel.catalog.dto.ProductDto;
+import com.joel.catalog.dto.ProductDTO;
 import com.joel.catalog.services.ProductService;
 import com.joel.catalog.services.exception.DatabaseException;
 import com.joel.catalog.services.exception.ResourceNotFoundException;
@@ -53,8 +53,8 @@ public class ProductControllerTests {
 	private long existingId;
 	private long nonExistingId;
 	private long depedentId;
-	private ProductDto productDto;
-	private PageImpl<ProductDto> page;
+	private ProductDTO productDto;
+	private PageImpl<ProductDTO> page;
 	
 	private String username;
 	private String password;

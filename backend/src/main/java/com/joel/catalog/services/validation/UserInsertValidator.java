@@ -9,12 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.joel.catalog.controllers.exceptions.FieldMessage;
 import com.joel.catalog.dto.UserInsertDTO;
+import com.joel.catalog.entities.User;
 import com.joel.catalog.repositories.UserRepository;
 
 public class UserInsertValidator implements ConstraintValidator<UserInsertValid, UserInsertDTO> {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepository repository;
 	
 	@Override
 	public void initialize(UserInsertValid ann) {
@@ -25,11 +26,11 @@ public class UserInsertValidator implements ConstraintValidator<UserInsertValid,
 		
 		List<FieldMessage> list = new ArrayList<>();
 		
-		var user = userRepository.findByEmail(dto.getEmail());
-		if(user != null) {
-			list.add(new FieldMessage("email", "Email ja existe"));
+		User user = repository.findByEmail(dto.getEmail());
+		if (user != null) {
+			list.add(new FieldMessage("email", "Email já existe"));
 		}
-		
+
 		for (FieldMessage e : list) {
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(e.getMessage()).addPropertyNode(e.getFieldName())
