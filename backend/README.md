@@ -4,12 +4,11 @@
 
 # About the project
 
-
-Product Catalog Project where users can list products and buy them
+Product Catalog Project where users can register on the platform through login, after authentication they can list the products of their choice and order the product.
 
 ## Conceptual Model
 
-![Conceptual Model](https://github.com/acenelio/assets/raw/main/sds1/modelo-conceitual.png)
+![Conceptual Model](https://github.com/JoelMaciel/Product-Catalog/blob/readm/backend/assets/modelo-conceitual-catalof.png)
 
 # Technologies used
 
@@ -20,7 +19,7 @@ Product Catalog Project where users can list products and buy them
 - AWS
 - Spring Security
 - OAuth2 , JWT
-- JPA / Hibernate
+- Spring Data JPA
 - Maven
 
 ## Deployment in production
