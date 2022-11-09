@@ -45,7 +45,7 @@ cd backend
 ```
 
 
-# Autor
+# Author
 
 Joel Maciel Viana
 
