@@ -47,4 +47,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: artifact
-          path: ./catalog/target/catalog-0.0.1-SNAPSHOT.jar
+          path: ./backend/target/catalog-0.0.1-SNAPSHOT.jar
