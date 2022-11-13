@@ -16,7 +16,7 @@ Product Catalog Project where users can register on the platform through login, 
 
 - Java
 - Spring Boot
-- AWS
+- AWS, Pipeline, Git Actions
 - Spring Security
 - OAuth2 , JWT
 - Spring Data JPA
