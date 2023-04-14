@@ -1,18 +1,16 @@
-name: Minha primeira actions
+
+name: Pipeline
 
 on:
   push:
-    branches: [ prod  ]
+    branches: [ "prod" ]
   pull_request:
-    branches: [ prod ]
+    branches: [ "prod" ]
 
 jobs:
-  build:
+  tests:
 
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
     - uses: actions/checkout@v3
@@ -21,13 +19,6 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
-        settings-path: ${{ github.workspace }} # location for the settings.xml file
-
+        cache: maven
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
-
-    - name: Publish to GitHub Packages Apache Maven
-      run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
-      env:
-        GITHUB_TOKEN: ${{ github.token }}
+      run: mvn -B test --file ./backend/pom.xml
